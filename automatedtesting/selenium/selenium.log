@@ -1,0 +1,16 @@
+2023-06-08 00:16:23,982  - INFO - Starting the browser...
+2023-06-08 00:16:25,555  - INFO - Browser started successfully. Navigating to the demo page to login.
+2023-06-08 00:16:26,554  - INFO - Login
+2023-06-08 00:16:26,860  - INFO - Add Backpack to cart
+2023-06-08 00:16:27,073  - INFO - Check Cart counter is updated
+2023-06-08 00:16:27,092  - INFO - Check Remove button is shown
+2023-06-08 00:16:27,106  - INFO - Check Add button is not shown
+2023-06-08 00:16:27,119  - INFO - Go to cart
+2023-06-08 00:16:27,350  - INFO - Assert correct product displayed
+2023-06-08 00:16:27,359  - INFO - Assert buttons are present
+2023-06-08 00:16:27,369  - INFO - Remove product
+2023-06-08 00:16:27,588  - INFO - Return to shopping
+2023-06-08 00:16:27,826  - INFO - Add Backpack to cart
+2023-06-08 00:16:28,042  - INFO - Check Remove button is shown
+2023-06-08 00:16:28,045  - INFO - Remove product
+2023-06-08 00:16:28,257  - INFO - Check shopping cart counter is not present
