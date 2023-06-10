@@ -77,7 +77,7 @@ stages:
 
     # since in the Udacity Lab the resource group exists and no other can be created, it needs to be imported
     # Import Resource Group - Udacity Lab required
-    - task: TerraformTaskV3@3
+    - task: TerraformCLI@0
       displayName: Terraform Import Resource Group
       inputs:
         command: 'import'
