@@ -9,14 +9,19 @@ trigger:
 pool: myAgent
 
 variables:
-  python.version: '3.7.6'
-  # ToDo: Replace the service connection name as used in the DevOps project settings
-  azureServiceConnectionId: 'myServiceConnection'
+  - name: python.version
+    value: '3.7.6'
+  - name: azureServiceConnectionId
+    value: 'myServiceConnection'
   # Project root folder. Point to the folder containing manage.py file.
-  projectRoot: $(System.DefaultWorkingDirectory)
+  - name: projectRoot
+    value: $(System.DefaultWorkingDirectory)
   # Environment name
-  environmentName: 'test'
-  appName: 'fakerest-235474'
+  - name: environmentName
+    value: 'test'
+  - name: appName
+    value: 'fakerest-235474'
+  - group: vars
 
 stages:
 #--------------------------------------------#  
@@ -61,6 +66,7 @@ stages:
     - task: InstallSSHKey@0
       inputs:
         knownHostsEntry: 'known_hosts'
+        sshPublicKey: $(public_key)
         sshKeySecureFile: 'id_rsa'
     
     - task: DownloadSecureFile@1
