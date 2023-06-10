@@ -10,7 +10,7 @@ import os
 # Start the browser and login with standard_user
 def add_remove_from_cart (user, password):
     logger = get_logger()
-    output_file = open("selenium_output.txt", "w")
+    output_file = open("selenium-output.txt", "w")
 
     save_message (logger, output_file, 'Starting the browser...')
     # --uncomment when running in Azure DevOps.
