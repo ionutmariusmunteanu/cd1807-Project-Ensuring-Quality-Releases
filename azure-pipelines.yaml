@@ -16,7 +16,6 @@ variables:
   projectRoot: $(System.DefaultWorkingDirectory)
   # Environment name
   environmentName: 'test'
-  subscriptionId: '67bd0a2e-3527-452d-b5c9-168d529053f6'
   appName: 'fakerest-235474'
 
 stages:
@@ -190,7 +189,7 @@ stages:
           - task: AzureWebApp@1
             displayName: 'Deploy Azure Web App'
             inputs:
-              azureSubscription: $(subscriptionId)
+              azureSubscription: $(azureServiceConnectionId)
               appName: $(appName)
               appType: webApp
               package: $(Pipeline.Workspace)/drop-fakerestapi/$(Build.BuildId)-fakerestapi.zip
