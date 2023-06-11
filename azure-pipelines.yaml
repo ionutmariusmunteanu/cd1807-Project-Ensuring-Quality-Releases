@@ -229,7 +229,7 @@ stages:
   - deployment: VMDeploy
     displayName: Selenium Tests
     environment:
-      name: test
+      name: $(environmentName)
       resourceType: VirtualMachine
       resourceName: myApplication-vm
     strategy:
@@ -237,7 +237,7 @@ stages:
         deploy:
           steps:
           - download: current
-            artifact: drop-ui-tests     # ToDo: Change/provide a name DONE
+            artifact: drop-ui-tests
             name: "download_ui_tests"
             
           - task: Bash@3
