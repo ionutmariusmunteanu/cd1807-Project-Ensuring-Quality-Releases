@@ -20,7 +20,7 @@ variables:
   - name: environmentName
     value: 'test'
   - name: appName
-    value: 'fakerest-235474'
+    value: 'myApplication-AppService'
   - group: vars
 
 stages:
@@ -229,7 +229,7 @@ stages:
   - deployment: VMDeploy
     displayName: Selenium Tests
     environment:
-      name: $(environmentName)        # ToDo: Change/provide a name DONE
+      name: myApplication-vm
       resourceType: VirtualMachine
       tags: selenium
     strategy:
