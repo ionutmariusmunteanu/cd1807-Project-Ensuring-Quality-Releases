@@ -76,14 +76,15 @@ stages:
         secureFile: id_rsa.pub
 
     # since in the Udacity Lab the resource group exists and no other can be created, it needs to be imported
+    # Should be run just once
     # Import Resource Group - Udacity Lab required
-    - task: TerraformCLI@0
-      displayName: Terraform Import Resource Group
-      inputs:
-        command: 'import'
-        workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
-        resourceAddress: module.resource_group.azurerm_resource_group.test
-        resourceId: "/subscriptions/67bd0a2e-3527-452d-b5c9-168d529053f6/resourceGroups/Azuredevops"
+#    - task: TerraformCLI@0
+#      displayName: Terraform Import Resource Group
+#      inputs:
+#        command: 'import'
+#        workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
+#        resourceAddress: module.resource_group.azurerm_resource_group.test
+#        resourceId: "/subscriptions/67bd0a2e-3527-452d-b5c9-168d529053f6/resourceGroups/Azuredevops"
 
     # Run Terraform Apply
     - task: TerraformTaskV3@3
