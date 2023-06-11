@@ -1,0 +1,299 @@
+{
+	"info": {
+		"_postman_id": "e36917eb-68aa-496d-8950-f6568cad1bc9",
+		"name": "TestSuite.Regression",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "12998007"
+	},
+	"item": [
+		{
+			"name": "Get All Employees",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Successful response\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"success\");",
+							"});",
+							"",
+							"pm.test(\"Status code 200\", function() {",
+							"    pm.response.to.have.status(200);",
+							"})",
+							"",
+							"pm.test(\"Content-Type is present\", function() {",
+							"    pm.response.to.have.header(\"Content-Type\");",
+							"})",
+							"",
+							"pm.test(\"Content-Type is application/json\", function() {",
+							"    pm.expect(postman.getResponseHeader(\"Content-Type\"))",
+							"        .to.include(\"application/json\")",
+							"})",
+							"",
+							"pm.test(\"Response has body\", function() {",
+							"    pm.response.to.have.body();",
+							"})",
+							"",
+							"pm.test(\"Body is json\", function() {",
+							"    pm.response.to.be.json;",
+							"})",
+							"",
+							"pm.test(\"Body to have 'status' 'success'\", function() {",
+							"    pm.expect(pm.response.json().status).to.equal(\"success\");",
+							"})",
+							"",
+							"pm.test(\"Body to have 'data'\", function() {",
+							"    pm.expect(pm.response.json().data.length).to.be.above(0)",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "{{url}}/employees"
+			},
+			"response": []
+		},
+		{
+			"name": "Create Employee",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Successful response\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"success\");",
+							"});",
+							"var json = pm.response.json();",
+							"pm.environment.set(\"id\", json.data.id);",
+							"",
+							"pm.test(\"Status code 200\", function() {",
+							"    pm.response.to.have.status(200);",
+							"})",
+							"",
+							"pm.test(\"Content-Type is present\", function() {",
+							"    pm.response.to.have.header(\"Content-Type\");",
+							"})",
+							"",
+							"pm.test(\"Content-Type is application/json\", function() {",
+							"    pm.expect(postman.getResponseHeader(\"Content-Type\"))",
+							"        .to.include(\"application/json\")",
+							"})",
+							"",
+							"pm.test(\"Response has body\", function() {",
+							"    pm.response.to.have.body();",
+							"})",
+							"",
+							"pm.test(\"Body is json\", function() {",
+							"    pm.response.to.be.json;",
+							"})",
+							"",
+							"pm.test(\"Body to have 'status' 'success'\", function() {",
+							"    pm.expect(pm.response.json().status).to.equal(\"success\");",
+							"})",
+							"",
+							"pm.test(\"Check emplyee id\", function() {",
+							"    pm.expect(pm.response.json().data.id).to.be.above(0)",
+							"})",
+							"",
+							"pm.test(\"Check employee name\", function() {",
+							"    pm.expect(pm.response.json().data.employee_name).to.be.equal(pm.environment.get(\"name\"))",
+							"})",
+							"",
+							"pm.test(\"Check employee salary\", function() {",
+							"    pm.expect(pm.response.json().data.employee_salary).to.be.equal(pm.environment.get(\"salary\"))",
+							"})",
+							"",
+							"pm.test(\"Check employee age\", function() {",
+							"    pm.expect(pm.response.json().data.employee_age).to.be.equal(pm.environment.get(\"age\"))",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"{{name}}\",\n    \"salary\": \"{{salary}}\",\n    \"age\": \"{{age}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{url}}/create"
+			},
+			"response": []
+		},
+		{
+			"name": "Get Employee",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Successful response\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"success\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Status code 200\", function() {\r",
+							"    pm.response.to.have.status(200);\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Response has body\", function() {\r",
+							"    pm.response.to.have.body();\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Body is json\", function() {\r",
+							"    pm.response.to.be.json;\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Body to have 'status' 'success'\", function() {\r",
+							"    pm.expect(pm.response.json().status).to.equal(\"success\");\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Body to have 'data'\", function() {\r",
+							"    pm.expect(pm.response.json().data.length).to.be.equal(1)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Check emplyee id\", function() {\r",
+							"    pm.expect(pm.response.json().data.id).to.be.equal(pm.environment.get(\"id\"))\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Check employee name\", function() {\r",
+							"    pm.expect(pm.response.json().data.employee_name).to.be.equal(pm.environment.get(\"name\"))\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Check employee salary\", function() {\r",
+							"    pm.expect(pm.response.json().data.employee_salary).to.be.equal(pm.environment.get(\"salary\"))\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Check employee age\", function() {\r",
+							"    pm.expect(pm.response.json().data.employee_age).to.be.equal(pm.environment.get(\"age\"))\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "{{url}}/employee/{{id}}"
+			},
+			"response": []
+		},
+		{
+			"name": "Update Employee",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Successful response\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"success\");\r",
+							"});\r",
+							"var json = pm.response.json();\r",
+							"pm.environment.set(\"id\", json.data.id);\r",
+							"\r",
+							"pm.test(\"Status code 200\", function() {\r",
+							"    pm.response.to.have.status(200);\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Content-Type is present\", function() {\r",
+							"    pm.response.to.have.header(\"Content-Type\");\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Content-Type is application/json\", function() {\r",
+							"    pm.expect(postman.getResponseHeader(\"Content-Type\"))\r",
+							"        .to.include(\"application/json\")\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Response has body\", function() {\r",
+							"    pm.response.to.have.body();\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Body is json\", function() {\r",
+							"    pm.response.to.be.json;\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Body to have 'status' 'success'\", function() {\r",
+							"    pm.expect(pm.response.json().status).to.equal(\"success\");\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Check emplyee id\", function() {\r",
+							"    pm.expect(pm.response.json().data.id).to.be.above(0)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Check employee name\", function() {\r",
+							"    pm.expect(pm.response.json().data.employee_name).to.be.equal(pm.environment.get(\"name_update\"))\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Check employee salary\", function() {\r",
+							"    pm.expect(pm.response.json().data.employee_salary).to.be.equal(pm.environment.get(\"salary\"))\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Check employee age\", function() {\r",
+							"    pm.expect(pm.response.json().data.employee_age).to.be.equal(pm.environment.get(\"age\"))\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": {{name_update}}\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{url}}/update/{{id}}"
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Employee",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Successful response\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"success\");\r",
+							"});\r",
+							"var json = pm.response.json();\r",
+							"pm.environment.set(\"id\", json.data.id);\r",
+							"\r",
+							"pm.test(\"Status code 200\", function() {\r",
+							"    pm.response.to.have.status(200);\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Body to have 'status' 'success'\", function() {\r",
+							"    pm.expect(pm.response.json().status).to.equal(\"success\");\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": "{{url}}/delete/{{id}}"
+			},
+			"response": []
+		}
+	]
+}
