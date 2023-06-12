@@ -84,7 +84,7 @@ stages:
         command: 'import'
         workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
         resourceAddress: module.resource_group.azurerm_resource_group.test
-        resourceId: "/subscriptions/67bd0a2e-3527-452d-b5c9-168d529053f6/resourceGroups/Azuredevops"
+        resourceId: "/subscriptions/7de72e36-dc87-4e3f-aa67-6dacbc9993c6/resourceGroups/Azuredevops"
 
     # Run Terraform Apply
     - task: TerraformTaskV3@3
