@@ -165,7 +165,7 @@ stages:
     - task: ArchiveFiles@2
       displayName: 'Archive FakeRestAPI'
       inputs:
-        rootFolderOrFile: '$(System.DefaultWorkingDirectory)/automatedtesting/jmeter'
+        rootFolderOrFile: '$(System.DefaultWorkingDirectory)/automatedtesting/jmeter/fakerestapi'
         includeRootFolder: false
         archiveType: 'zip'
         archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId)-fakerestapi.zip'
@@ -216,10 +216,11 @@ stages:
           - task: CmdLine@2
             inputs:
               script: |
-                wget "https://apache.mirrors.lucidnetworks.net//jmeter/binaries/apache-jmeter-5.2.1.tgz"
-                tar -xf apache-jmeter-5.2.1.tgz
+                java -version
+                wget "https://archive.apache.org/dist/jmeter/binaries/apache-jmeter-5.4.tgz"
+                tar -xf apache-jmeter-5.4.tgz
                 unzip -o $(Build.BuildId)-perftests.zip
-                ./apache-jmeter-5.2.1/bin/jmeter -n -t testsuite.jmx \ 
+                ./apache-jmeter-5.4/bin/jmeter -n -t testsuite.jmx \ 
                                                 -l results.csv \
                                                 -e -f -o report \
                                                 -j test.log
@@ -245,7 +246,7 @@ stages:
         deploy:
           steps:
           - download: current
-            artifact: drop-ui-tests
+            artifact: drop-uitests
             name: "download_ui_tests"
 
           - task: Bash@3
