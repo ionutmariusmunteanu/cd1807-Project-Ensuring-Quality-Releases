@@ -6,7 +6,7 @@ name: Azure Pipelines
 trigger:
 - main
 
-pool: myAgentPoop
+pool: myAgentPool
 
 variables:
   - name: python.version
