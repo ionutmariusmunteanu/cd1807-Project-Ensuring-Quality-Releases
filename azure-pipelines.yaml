@@ -219,9 +219,17 @@ stages:
                 wget "https://apache.mirrors.lucidnetworks.net//jmeter/binaries/apache-jmeter-5.2.1.tgz"
                 tar -xf apache-jmeter-5.2.1.tgz
                 unzip -o $(Build.BuildId)-perftests.zip
-                ./apache-jmeter-5.2.1/bin/jmeter -n -t PerformanceTestSuite.jmx -j jmeter.log -f
-                cat jmeter.log                                                                           # ToDo: Write your commands
-              workingDirectory: $(Pipeline.Workspace)/drop-perftests           # ToDo: Use the artifact name from the task above DONE
+                ./apache-jmeter-5.2.1/bin/jmeter -n -t testsuite.jmx \ 
+                                                -l results.csv \
+                                                -e -f -o report \
+                                                -j test.log
+                cat jmeter.log
+              workingDirectory: $(Pipeline.Workspace)/drop-perftests
+
+          - task: publishhtmlreport@1
+            inputs:
+              htmlType: 'Jmeter'
+              JmeterReportsPath: '$(Pipeline.Workspace)/drop-perftests/report'
               
   #--------------------------------------------#  
   # Selenium | Functional UI Tests
