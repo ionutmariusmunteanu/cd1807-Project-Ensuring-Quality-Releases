@@ -282,7 +282,7 @@ stages:
                 cat selenium.log
                 cp selenium.log selenium_$(Build.BuildId).log
 
-                Install Log Analytics agent on Linux computers (only need to run once)
+                #Install Log Analytics agent on Linux computers (only need to run once)
                 wget https://raw.githubusercontent.com/Microsoft/OMS-Agent-for-Linux/master/installer/scripts/onboard_agent.sh
                 sh onboard_agent.sh -w ${LOG_ANALYTICS_WORKSPACE_ID} -s ${LOG_ANALYTICS_PRIMARY_KEY}
                 sudo /opt/microsoft/omsagent/bin/service_control restart ${AZURE_LOG_ANALYTICS_ID}
