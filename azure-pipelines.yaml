@@ -223,7 +223,7 @@ stages:
                 unzip -o $(Build.BuildId)-perftests.zip
                 ./apache-jmeter-5.4/bin/jmeter -n -t testsuite.jmx -l results.csv -e -f -o report -j test.log
                 cat test.log
-              workingDirectory: $(Pipeline.Workspace)/drop-perftests
+              workingDirectory: $(System.DefaultWorkingDirectory)/drop-perftests
 
           - task: ArchiveFiles@2
             displayName: Save JMeter Test Report to Artifact
