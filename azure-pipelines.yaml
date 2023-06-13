@@ -222,13 +222,23 @@ stages:
                 tar -xf apache-jmeter-5.4.tgz
                 unzip -o $(Build.BuildId)-perftests.zip
                 ./apache-jmeter-5.4/bin/jmeter -n -t testsuite.jmx -l results.csv -e -f -o report -j test.log
-                cat jmeter.log
+                cat test.log
               workingDirectory: $(Pipeline.Workspace)/drop-perftests
 
-          - task: publishhtmlreport@1
+          - task: ArchiveFiles@2
+            displayName: Save JMeter Test Report to Artifact
             inputs:
-              htmlType: 'Jmeter'
-              JmeterReportsPath: '$(Pipeline.Workspace)/drop-perftests/report'
+              rootFolderOrFile: '$(System.DefaultWorkingDirectory)/report'
+              includeRootFolder: false
+              archiveType: 'zip'
+              archiveFile: '$(System.DefaultWorkingDirectory)/report-$(Build.BuildId).zip'
+              verbose: true
+
+          - task: PublishPipelineArtifact@1
+            displayName: Publish JMeter logs
+            inputs:
+              targetPath: '$(System.DefaultWorkingDirectory)'
+              artifactName: 'drop-jmeter-report'
               
   #--------------------------------------------#  
   # Selenium | Functional UI Tests
@@ -283,9 +293,9 @@ stages:
                 cp selenium.log selenium_$(Build.BuildId).log
 
                 #Install Log Analytics agent on Linux computers (only need to run once)
-                wget https://raw.githubusercontent.com/Microsoft/OMS-Agent-for-Linux/master/installer/scripts/onboard_agent.sh
-                sh onboard_agent.sh -w ${LOG_ANALYTICS_WORKSPACE_ID} -s ${LOG_ANALYTICS_PRIMARY_KEY}
-                sudo /opt/microsoft/omsagent/bin/service_control restart ${AZURE_LOG_ANALYTICS_ID}
+#                wget https://raw.githubusercontent.com/Microsoft/OMS-Agent-for-Linux/master/installer/scripts/onboard_agent.sh
+#                sh onboard_agent.sh -w ${LOG_ANALYTICS_WORKSPACE_ID} -s ${LOG_ANALYTICS_PRIMARY_KEY}
+#                sudo /opt/microsoft/omsagent/bin/service_control restart ${AZURE_LOG_ANALYTICS_ID}
 
             env: # To use secret variables in a script, we must explicitly map them as environment variables.
               LOG_ANALYTICS_WORKSPACE_ID: $(LOG_ANALYTICS_WORKSPACE_ID)
