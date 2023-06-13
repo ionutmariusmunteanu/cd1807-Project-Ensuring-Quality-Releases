@@ -261,6 +261,7 @@ stages:
                 pip3 install selenium
                 cd ~/
                 DIR=/home/azuredevops/app
+                rm -rf DIR
                 if [ ! -d "$DIR" ]; then
                     mkdir app
                 fi
@@ -279,5 +280,6 @@ stages:
                 echo "Starting Selenium Tests"
                 python3 add_remove_from_cart.py >> selenium.log
                 echo "Completed Selenium Tests. Check selenium.log for results."
+                cat selenium.log
 
           - task: PublishPipelineArtifact@1
