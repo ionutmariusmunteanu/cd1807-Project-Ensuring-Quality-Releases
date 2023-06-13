@@ -261,7 +261,7 @@ stages:
                 pip3 install selenium
                 cd ~/
                 DIR=/home/azuredevops/app
-                rm -rf DIR
+                rm -rf $DIR
                 if [ ! -d "$DIR" ]; then
                     mkdir app
                 fi
