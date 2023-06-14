@@ -20,7 +20,7 @@ variables:
   - name: environmentName
     value: 'test'
   - name: appName
-    value: 'odlUser235617Application-AppService'
+    value: 'odlUser235761Application-AppService'
   - group: vars
 
 stages:
@@ -49,7 +49,7 @@ stages:
         workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
         backendServiceArm: '$(azureServiceConnectionId)'
         backendAzureRmResourceGroupName: 'Azuredevops'
-        backendAzureRmStorageAccountName: 'tfstate2662427543'
+        backendAzureRmStorageAccountName: 'tfstate3273514488'
         backendAzureRmContainerName: 'tfstate'
         backendAzureRmKey: 'test.terraform.tfstate'
 
@@ -208,7 +208,7 @@ stages:
             displayName: 'Deploy Azure Web App'
             inputs:
               azureSubscription: $(azureServiceConnectionId)
-              appName: '$(appName)-2'
+              appName: '$(appName)'
               appType: webApp
               package: $(Pipeline.Workspace)/drop-fakerestapi/$(Build.BuildId)-fakerestapi.zip
           #--------------------------------------------#    
@@ -248,7 +248,7 @@ stages:
     environment:
       name: $(environmentName)
       resourceType: VirtualMachine
-      resourceName: odlUser235617Application-vm
+      resourceName: odlUser235761Application-vm
     strategy:
       runOnce:
         deploy:
