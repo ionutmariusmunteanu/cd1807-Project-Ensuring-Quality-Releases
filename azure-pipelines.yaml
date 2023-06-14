@@ -223,12 +223,12 @@ stages:
                 unzip -o $(Build.BuildId)-perftests.zip
                 ./apache-jmeter-5.4/bin/jmeter -n -t testsuite.jmx -l results.csv -e -f -o report -j test.log
                 cat test.log
-              workingDirectory: $(System.DefaultWorkingDirectory)/drop-perftests
+              workingDirectory: $(Pipeline.Workspace)/drop-perftests
 
           - task: ArchiveFiles@2
             displayName: Save JMeter Test Report to Artifact
             inputs:
-              rootFolderOrFile: '$(System.DefaultWorkingDirectory)/report'
+              rootFolderOrFile: '$(Pipeline.Workspace)/report'
               includeRootFolder: false
               archiveType: 'zip'
               archiveFile: '$(System.DefaultWorkingDirectory)/report-$(Build.BuildId).zip'
@@ -300,4 +300,15 @@ stages:
             env: # To use secret variables in a script, we must explicitly map them as environment variables.
               LOG_ANALYTICS_WORKSPACE_ID: $(LOG_ANALYTICS_WORKSPACE_ID)
               LOG_ANALYTICS_PRIMARY_KEY: $(LOG_ANALYTICS_PRIMARY_KEY)
+          - task: ArchiveFiles@2
+            displayName: 'Archive Selenium'
+            inputs:
+              rootFolderOrFile: '~/app/selenium.log'
+              includeRootFolder: false
+              archiveType: 'zip'
+              archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId)-selenium-log.zip'
           - task: PublishPipelineArtifact@1
+            displayName: Publish Selenium logs
+            inputs:
+              targetPath: '$(System.DefaultWorkingDirectory)'
+              artifactName: 'drop-selenium-log'

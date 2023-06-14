@@ -1,7 +1,7 @@
 # #!/usr/bin/env python
 from selenium import webdriver
-#from selenium.webdriver.firefox.options import Options as FirefoxOptions
-from selenium.webdriver.chrome.options import Options as ChromeOptions
+from selenium.webdriver.firefox.options import Options as FirefoxOptions
+# from selenium.webdriver.chrome.options import Options as ChromeOptions
 from selenium.webdriver.common.by import By
 from selenium.common.exceptions import NoSuchElementException
 import logging
@@ -14,10 +14,10 @@ def add_remove_from_cart (user, password):
 
     save_message (logger, output_file, 'Starting the browser...')
     # --uncomment when running in Azure DevOps.
-    options = ChromeOptions()
-    options.add_argument("--headless")
-    driver = webdriver.Chrome(options=options)
-    #driver = webdriver.Firefox()
+    # options = ChromeOptions()
+    # options.add_argument("--headless")
+    # driver = webdriver.Chrome(options=options)
+    driver = webdriver.Firefox()
     save_message (logger, output_file, 'Browser started successfully. Navigating to the demo page to login.')
     driver.get('https://www.saucedemo.com/')
 
@@ -26,6 +26,10 @@ def add_remove_from_cart (user, password):
     driver.find_element(By.CSS_SELECTOR, "input[id='user-name']").send_keys(user)
     driver.find_element(By.CSS_SELECTOR, "input[id='password']").send_keys(password)
     driver.find_element(By.CSS_SELECTOR, "input[type='submit']").click()
+
+    save_message (logger, output_file, 'Check login worked')
+    assert 'inventory' in driver.current_url
+    save_message(logger, output_file, "User " + user + " is logged in")
 
     # Shopping tests
     # Add product to cart should update cart counter
@@ -55,7 +59,7 @@ def add_remove_from_cart (user, password):
     assert_element_exists(driver, "button[id='checkout']", 1)
 
     # Remove product
-    save_message (logger, output_file, "Remove product")
+    save_message (logger, output_file, "Remove Backpack product")
     driver.find_element(By.CSS_SELECTOR, "button[id='remove-sauce-labs-backpack']").click()
     assert_element_exists(driver, "div[id='shopping_cart_container'] > a > span", 0)
     assert_element_exists(driver, "div[class='cart_list'] > .cart_item", 0)
@@ -68,9 +72,25 @@ def add_remove_from_cart (user, password):
     driver.find_element(By.CSS_SELECTOR, "button[id='add-to-cart-sauce-labs-backpack']").click()
     save_message (logger, output_file, 'Check Remove button is shown')
     assert_element_exists(driver, "button[id='remove-sauce-labs-backpack']", 1)
-    save_message (logger, output_file, 'Remove product')
+    save_message (logger, output_file, 'Remove Backpack product')
     driver.find_element(By.CSS_SELECTOR, "button[id='remove-sauce-labs-backpack']").click()
     save_message (logger, output_file, 'Check shopping cart counter is not present')
+    assert_element_exists(driver, "div[id='shopping_cart_container'] > a > span", 0)
+
+    save_message(logger, output_file, 'Add 6 items to the cart')
+    items = ['sauce-labs-backpack','sauce-labs-bike-light','sauce-labs-bolt-t-shirt','sauce-labs-fleece-jacket','sauce-labs-onesie','test.allthethings()-t-shirt-(red)']
+    for item in items:
+        save_message(logger, output_file, "Add " + item)
+        driver.find_element(By.CSS_SELECTOR, "button[id='add-to-cart-" + item + "']").click()
+    save_message(logger, output_file, "Check Shopping Card Counter shows 6 items")
+    counter_cart = driver.find_element(By.CSS_SELECTOR, "div[id='shopping_cart_container'] > a > span").text
+    assert counter_cart == '6'
+
+    save_message(logger, output_file, 'Remove the 6 items from the cart')
+    for item in items:
+        save_message(logger, output_file, "Remove " + item)
+        driver.find_element(By.CSS_SELECTOR, "button[id='remove-" + item + "']").click()
+    save_message(logger, output_file, "Check Shopping Card Counter is not present")
     assert_element_exists(driver, "div[id='shopping_cart_container'] > a > span", 0)
 
     save_message (logger, output_file, 'All tests have passed!')
