@@ -178,7 +178,7 @@ stages:
       displayName: Prepare JMeter tests archive
       continueOnError: true
       inputs:
-        script: 'mkdir jmeter-tests && cp ids.csv ./jmeter-tests/ids.csv && cp testsuite.jmx to ./jmeter-tests/testsuite.jmx'
+        script: 'mkdir jmeter-tests && cp ids.csv ./jmeter-tests/ids.csv && cp testsuite.jmx ./jmeter-tests/testsuite.jmx'
         workingDirectory: '$(System.DefaultWorkingDirectory)/automatedtesting/jmeter'
 
     #--------------------------------------------#  
@@ -278,6 +278,7 @@ stages:
                 sudo apt-get install unzip -y
                 sudo apt-get install -y chromium-browser
                 pip3 install selenium
+                sudo apt-get -y install zip
                 cd ~/
                 DIR=/home/azuredevops/app
                 if [ ! -d "$DIR" ]; then
@@ -302,9 +303,9 @@ stages:
                 cp selenium.log selenium_$(Build.BuildId).log
 
                 #Install Log Analytics agent on Linux computers (only need to run once)
-                wget https://raw.githubusercontent.com/Microsoft/OMS-Agent-for-Linux/master/installer/scripts/onboard_agent.sh
-                sh onboard_agent.sh -w ${LOG_ANALYTICS_WORKSPACE_ID} -s ${LOG_ANALYTICS_PRIMARY_KEY}
-                sudo /opt/microsoft/omsagent/bin/service_control restart ${AZURE_LOG_ANALYTICS_ID}
+#                wget https://raw.githubusercontent.com/Microsoft/OMS-Agent-for-Linux/master/installer/scripts/onboard_agent.sh
+#                sh onboard_agent.sh -w ${LOG_ANALYTICS_WORKSPACE_ID} -s ${LOG_ANALYTICS_PRIMARY_KEY}
+#                sudo /opt/microsoft/omsagent/bin/service_control restart ${AZURE_LOG_ANALYTICS_ID}
 
             env: # To use secret variables in a script, we must explicitly map them as environment variables.
               LOG_ANALYTICS_WORKSPACE_ID: $(LOG_ANALYTICS_WORKSPACE_ID)
