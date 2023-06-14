@@ -173,6 +173,14 @@ stages:
       displayName: 'Upload Package'
       artifact: drop-fakerestapi
 
+    # copy the jmeter tests files to a new folder so to archive that and not also the fakerestapi folder
+    - task: CmdLine@2
+      displayName: Prepare JMeter tests archive
+      continueOnError: true
+      inputs:
+        script: 'mkdir jmeter-tests && cp ids.csv ./jmeter-tests/ids.csv && cp testsuite.jmx to ./jmeter-tests/testsuite.jmx'
+        workingDirectory: '$(System.DefaultWorkingDirectory)/automatedtesting/jmeter'
+
     #--------------------------------------------#  
     # JMeter (Performance) Test Suite - Archive
     # ToDo: Complete the ArchiveFiles@2 task and publish step
@@ -180,7 +188,7 @@ stages:
     - task: ArchiveFiles@2
       displayName: 'Archive PerformanceTestSuite'
       inputs:
-        rootFolderOrFile: '$(System.DefaultWorkingDirectory)/automatedtesting/jmeter'
+        rootFolderOrFile: '$(System.DefaultWorkingDirectory)/automatedtesting/jmeter/jmeter-tests'
         includeRootFolder: false
         archiveType: 'zip'
         archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId)-perftests.zip'
