@@ -113,7 +113,7 @@ def get_logger():
     logger.setLevel(logging.DEBUG)
 
     f_handler = logging.FileHandler('./selenium.log')
-    formatter = logging.Formatter('%(asctime)s  - %(levelname)s - %(message)s')
+    formatter = logging.Formatter('%(levelname)s - %(message)s')
 
     f_handler.setFormatter(formatter)
     logger.addHandler(f_handler)
