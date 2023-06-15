@@ -290,17 +290,18 @@ stages:
                 FILE=/home/azuredevops/app/chromedriver_linux64.zip
                 if [ ! -f "$FILE" ]; then
                     #LATEST=$(wget -q -O - http://chromedriver.storage.googleapis.com/LATEST_RELEASE)
-                    LATEST = '112.0.5615.49'
+                    LATEST='112.0.5615.49'
                     wget http://chromedriver.storage.googleapis.com/$LATEST/chromedriver_linux64.zip
                     unzip -o chromedriver_linux64.zip
                     sudo ln -s $PWD/chromedriver /usr/local/bin/chromedriver
+                    mkdir logs
                 fi
                 export PATH=$PATH:/home/azuredevops/app
                 echo "Starting Selenium Tests"
                 python3 add_remove_from_cart.py >> selenium.log
                 echo "Completed Selenium Tests. Check selenium.log for results."
                 cat selenium.log
-                cp selenium.log selenium_$(Build.BuildId).log
+                cp selenium.log ./logs/selenium_$(Build.BuildId).log
 
                 #Install Log Analytics agent on Linux computers (only need to run once)
 #                wget https://raw.githubusercontent.com/Microsoft/OMS-Agent-for-Linux/master/installer/scripts/onboard_agent.sh
@@ -310,15 +311,15 @@ stages:
             env: # To use secret variables in a script, we must explicitly map them as environment variables.
               LOG_ANALYTICS_WORKSPACE_ID: $(LOG_ANALYTICS_WORKSPACE_ID)
               LOG_ANALYTICS_PRIMARY_KEY: $(LOG_ANALYTICS_PRIMARY_KEY)
-          - task: ArchiveFiles@2
-            displayName: 'Archive Selenium'
-            inputs:
-              rootFolderOrFile: '~/app/selenium.log'
-              includeRootFolder: false
-              archiveType: 'zip'
-              archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId)-selenium-log.zip'
-          - task: PublishPipelineArtifact@1
-            displayName: Publish Selenium logs
-            inputs:
-              targetPath: '$(System.DefaultWorkingDirectory)'
-              artifactName: 'drop-selenium-log'
+#          - task: ArchiveFiles@2
+#            displayName: 'Archive Selenium'
+#            inputs:
+#              rootFolderOrFile: '~/app/selenium.log'
+#              includeRootFolder: false
+#              archiveType: 'zip'
+#              archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId)-selenium-log.zip'
+#          - task: PublishPipelineArtifact@1
+#            displayName: Publish Selenium logs
+#            inputs:
+#              targetPath: '$(System.DefaultWorkingDirectory)'
+#              artifactName: 'drop-selenium-log'
