@@ -20,7 +20,7 @@ variables:
   - name: environmentName
     value: 'test'
   - name: appName
-    value: 'odlUser235761Application-AppService'
+    value: 'odlUser238279Application-AppService'
   - group: vars
 
 stages:
@@ -49,7 +49,7 @@ stages:
         workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
         backendServiceArm: '$(azureServiceConnectionId)'
         backendAzureRmResourceGroupName: 'Azuredevops'
-        backendAzureRmStorageAccountName: 'tfstate3273514488'
+        backendAzureRmStorageAccountName: 'tfstate937624367'
         backendAzureRmContainerName: 'tfstate'
         backendAzureRmKey: 'test.terraform.tfstate'
 
@@ -77,14 +77,14 @@ stages:
 
     # since in the Udacity Lab the resource group exists and no other can be created, it needs to be imported
     # Should be run just once
-    # Import Resource Group - Udacity Lab required
-#    - task: TerraformCLI@0
-#      displayName: Terraform Import Resource Group
-#      inputs:
-#        command: 'import'
-#        workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
-#        resourceAddress: module.resource_group.azurerm_resource_group.test
-#        resourceId: "/subscriptions/fe543d6c-d65a-4f94-99e0-886fb95f57dd/resourceGroups/Azuredevops"
+#     Import Resource Group - Udacity Lab required
+    - task: TerraformCLI@0
+      displayName: Terraform Import Resource Group
+      inputs:
+        command: 'import'
+        workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
+        resourceAddress: module.resource_group.azurerm_resource_group.test
+        resourceId: "/subscriptions/09e822a9-d2e3-40f8-885b-ae82ab7bffdd/resourceGroups/Azuredevops"
 
     # Run Terraform Apply
     - task: TerraformTaskV3@3
@@ -257,7 +257,7 @@ stages:
     environment:
       name: $(environmentName)
       resourceType: VirtualMachine
-      resourceName: odlUser235761Application-vm
+      resourceName: odlUser238279Application-vm
     strategy:
       runOnce:
         deploy:

@@ -56,64 +56,6 @@
 				"url": "{{url}}/employees"
 			},
 			"response": []
-		},
-		{
-			"name": "Get Employee",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Successful response\", function () {\r",
-							"    pm.expect(pm.response.text()).to.include(\"success\");\r",
-							"});\r",
-							"\r",
-							"pm.test(\"Status code 200\", function() {\r",
-							"    pm.response.to.have.status(200);\r",
-							"})\r",
-							"\r",
-							"pm.test(\"Response has body\", function() {\r",
-							"    pm.response.to.have.body();\r",
-							"})\r",
-							"\r",
-							"pm.test(\"Body is json\", function() {\r",
-							"    pm.response.to.be.json;\r",
-							"})\r",
-							"\r",
-							"pm.test(\"Body to have 'status' 'success'\", function() {\r",
-							"    pm.expect(pm.response.json().status).to.equal(\"success\");\r",
-							"})\r",
-							"\r",
-							"pm.test(\"Body to have 'data'\", function() {\r",
-							"    pm.expect(pm.response.json().data.length).to.be.equal(1)\r",
-							"})\r",
-							"\r",
-							"pm.test(\"Check emplyee id\", function() {\r",
-							"    pm.expect(pm.response.json().data.id).to.be.equal(pm.environment.get(\"id\"))\r",
-							"})\r",
-							"\r",
-							"pm.test(\"Check employee name\", function() {\r",
-							"    pm.expect(pm.response.json().data.employee_name).to.be.equal(pm.environment.get(\"name\"))\r",
-							"})\r",
-							"\r",
-							"pm.test(\"Check employee salary\", function() {\r",
-							"    pm.expect(pm.response.json().data.employee_salary).to.be.equal(pm.environment.get(\"salary\"))\r",
-							"})\r",
-							"\r",
-							"pm.test(\"Check employee age\", function() {\r",
-							"    pm.expect(pm.response.json().data.employee_age).to.be.equal(pm.environment.get(\"age\"))\r",
-							"})"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": "{{url}}/employee/{{id}}"
-			},
-			"response": []
 		}
 	]
 }
