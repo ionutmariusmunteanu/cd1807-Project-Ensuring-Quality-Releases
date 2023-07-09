@@ -1,14 +1,14 @@
 # Azure subscription vars
-subscription_id = "09e822a9-d2e3-40f8-885b-ae82ab7bffdd"
-client_id = "4d495c88-299d-475c-9606-de21de4e486d"
-client_secret = "DNd8Q~yXNm0NIwLAD5tMWg4b9c7X81T6PSaNkbRQ"
+subscription_id = "ad6befd3-6a77-4714-b24d-181b38cb2753"
+client_id = "80e4a591-f5ca-45c0-8224-2ad8ffb70318"
+client_secret = "bGM8Q~Qp0HPYKMIw5iVdsBdguyV05FDoeyzF.bv7"
 tenant_id = "f958e84a-92b8-439f-a62d-4f45996b6d07"
 
 # Resource Group/Location
 location = "West Europe"
 resource_group = "Azuredevops"
 resource_group_location = "West Europe"
-application_type = "odlUser238279Application"
+application_type = "odlUser238458Application"
 
 # Network
 virtual_network_name = "project3-vn"

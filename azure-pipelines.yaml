@@ -20,7 +20,7 @@ variables:
   - name: environmentName
     value: 'test'
   - name: appName
-    value: 'odlUser238279Application-AppService'
+    value: 'odlUser238458Application-AppService'
   - group: vars
 
 stages:
@@ -49,7 +49,7 @@ stages:
         workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
         backendServiceArm: '$(azureServiceConnectionId)'
         backendAzureRmResourceGroupName: 'Azuredevops'
-        backendAzureRmStorageAccountName: 'tfstate1325630383'
+        backendAzureRmStorageAccountName: 'tfstate2509332530'
         backendAzureRmContainerName: 'tfstate'
         backendAzureRmKey: 'test.terraform.tfstate'
 
@@ -84,7 +84,7 @@ stages:
         command: 'import'
         workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
         resourceAddress: module.resource_group.azurerm_resource_group.test
-        resourceId: "/subscriptions/09e822a9-d2e3-40f8-885b-ae82ab7bffdd/resourceGroups/Azuredevops"
+        resourceId: "/subscriptions/ad6befd3-6a77-4714-b24d-181b38cb2753/resourceGroups/Azuredevops"
 
     # Run Terraform Apply
     - task: TerraformTaskV3@3
@@ -257,7 +257,7 @@ stages:
 #    environment:
 #      name: $(environmentName)
 #      resourceType: VirtualMachine
-#      resourceName: odlUser238279Application-vm
+#      resourceName: odlUser238458Application-vm
 #    strategy:
 #      runOnce:
 #        deploy:
