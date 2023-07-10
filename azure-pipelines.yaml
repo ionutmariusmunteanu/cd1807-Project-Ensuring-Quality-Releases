@@ -300,7 +300,7 @@ stages:
                 python3 add_remove_from_cart.py >> selenium.log
                 echo "Completed Selenium Tests. Check selenium.log for results."
                 cat selenium.log
-                cp selenium.log ./logs/selenium_$(Build.BuildId).log
+                cp selenium.log ./logs/selenium$(Build.BuildId).log
 
                 #Install Log Analytics agent on Linux computers (only need to run once)
 #                wget https://raw.githubusercontent.com/Microsoft/OMS-Agent-for-Linux/master/installer/scripts/onboard_agent.sh
