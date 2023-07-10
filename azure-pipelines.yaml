@@ -310,15 +310,15 @@ stages:
             env: # To use secret variables in a script, we must explicitly map them as environment variables.
               LOG_ANALYTICS_WORKSPACE_ID: $(LOG_ANALYTICS_WORKSPACE_ID)
               LOG_ANALYTICS_PRIMARY_KEY: $(LOG_ANALYTICS_PRIMARY_KEY)
-          - task: ArchiveFiles@2
-            displayName: 'Archive Selenium'
-            inputs:
-              rootFolderOrFile: '~/app/selenium.log'
-              includeRootFolder: false
-              archiveType: 'zip'
-              archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId)-selenium-log.zip'
-          - task: PublishPipelineArtifact@1
-            displayName: Publish Selenium logs
-            inputs:
-              targetPath: '$(System.DefaultWorkingDirectory)'
-              artifactName: 'drop-selenium-log'
+#          - task: ArchiveFiles@2
+#            displayName: 'Archive Selenium'
+#            inputs:
+#              rootFolderOrFile: '~/app/selenium.log'
+#              includeRootFolder: false
+#              archiveType: 'zip'
+#              archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId)-selenium-log.zip'
+#          - task: PublishPipelineArtifact@1
+#            displayName: Publish Selenium logs
+#            inputs:
+#              targetPath: '$(System.DefaultWorkingDirectory)'
+#              artifactName: 'drop-selenium-log'
