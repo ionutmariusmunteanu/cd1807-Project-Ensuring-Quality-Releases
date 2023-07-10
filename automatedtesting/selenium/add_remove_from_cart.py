@@ -90,7 +90,7 @@ def add_remove_from_cart (user, password):
     for item in items:
         save_message(logger, output_file, "Remove " + item)
         driver.find_element(By.CSS_SELECTOR, "button[id='remove-" + item + "']").click()
-    save_message(logger, output_file, "Check Shopping Card Counter is not present")
+    save_message(logger, output_file, "Check after all removed Shopping Card Counter is not present")
     assert_element_exists(driver, "div[id='shopping_cart_container'] > a > span", 0)
 
     save_message (logger, output_file, 'All tests have passed!')
