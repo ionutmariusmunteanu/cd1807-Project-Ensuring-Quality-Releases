@@ -113,7 +113,7 @@ def get_logger():
     logger.setLevel(logging.DEBUG)
 
     f_handler = logging.FileHandler('./selenium.log')
-    formatter = logging.Formatter('%(asctime)s %(message)s', "%Y-%m-%d %H:%M:%S")
+    formatter = logging.Formatter('%(message)s', "%Y-%m-%d %H:%M:%S")
 
     f_handler.setFormatter(formatter)
     logger.addHandler(f_handler)
